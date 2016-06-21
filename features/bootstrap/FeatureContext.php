@@ -27,11 +27,11 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Given there is a :arg1, which costs IDR50000
+     * @Given there is a :arg1, which costs :arg2
      */
-    public function thereIsAWhichCostsIdr($product)
+    public function thereIsAWhichCosts($product, $price)
     {
-       $this->shelf->setProductPrice($product, (int)50000);
+        $this->shelf->setProductPrice($product, intval($price));
     }
 
     /**
@@ -43,64 +43,24 @@ class FeatureContext implements Context, SnippetAcceptingContext
     }
 
     /**
-     * @Then I Should have :arg1 product in the basket
+     * @Then I Should have :arg1 product(s) in the basket
      */
     public function iShouldHaveProductInTheBasket($count)
     {
-        PHPUnit_Framework_Assert::assertCount(intval($count), $this->basket);
-    }
-
-    /**
-     * @Then the overall basket price should be IDR90000
-     */
-    public function theOverallBasketPriceShouldBeIdr()
-    {
-        PHPUnit_Framework_Assert::assertSame(
-            floatval(90000),
-            $this->basket->getTotalPrice()
+        PHPUnit_Framework_Assert::assertCount(
+            intval($count),
+            $this->basket
         );
     }
 
     /**
-     * @Given there is a :arg1, which costs IDR150000
+     * @Then the overall basket price should be :arg1
      */
-    public function thereIsAWhichCostsIdr2($product)
-    {
-        $this->shelf->setProductPrice($product, (int) 150000);
-    }
-
-    /**
-     * @Then I should have :arg1 product in the basket
-     */
-    public function iShouldHaveProductInTheBasket2($count)
-    {
-        PHPUnit_Framework_Assert::assertCount(intval($count), $this->basket);
-    }
-
-    /**
-     * @Then the overall basket price should be IDR200000
-     */
-    public function theOverallBasketPriceShouldBeIdr2()
+    public function theOverallBasketPriceShouldBe($price)
     {
         PHPUnit_Framework_Assert::assertSame(
-            intval(200000),
-            $this->basket->getTotalPrice()
+            intval($price),
+            intval($this->basket->getTotalPrice())
         );
-    }
-
-    /**
-     * @Given there is a :arg1, which costs IDR100000
-     */
-    public function thereIsAWhichCostsIdr3($product)
-    {
-        $this->shelf->setProductPrice($product, (int)100000);
-    }
-
-    /**
-     * @Then I should have :arg1 products in the basket
-     */
-    public function iShouldHaveProductsInTheBasket($count)
-    {
-        PHPUnit_Framework_Assert::assertCount(intval($count), $this->basket);
     }
 }

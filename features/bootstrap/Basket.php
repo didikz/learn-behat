@@ -21,7 +21,7 @@ class Basket implements \Countable {
     {
         return $this->productsPrice
             + ($this->productsPrice * 0.2)
-            + ($this->productsPrice > 10 ? 2.0 : 3.0);
+            + ($this->productsPrice > 10 ? 20000 : 30000);
     }
 
     public function count()
