@@ -19,13 +19,21 @@ class Basket implements \Countable {
 
     public function getTotalPrice()
     {
-        return $this->productsPrice
-            + ($this->productsPrice * 0.2)
-            + ($this->productsPrice > 10 ? 20000 : 30000);
+        return $this->productsPrice + $this->calculateVAT() + $this->calculateDelivery();
     }
 
     public function count()
     {
         return count($this->products);
+    }
+
+    private function calculateVAT()
+    {
+    	return $this->productsPrice * 0.2;
+    }
+
+    private function calculateDelivery()
+    {
+    	return $this->productsPrice > 10 ? 20000 : 30000;
     }
 }
